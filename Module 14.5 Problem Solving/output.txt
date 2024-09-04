@@ -1,1 +1,1 @@
-Given Stack are  same
+Stack and Queue are same
