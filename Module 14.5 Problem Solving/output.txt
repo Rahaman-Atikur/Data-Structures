@@ -1,1 +1,1 @@
-Stack and Queue are same
+10 20 30 40 50 
