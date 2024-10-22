@@ -1,0 +1,87 @@
+#include <bits/stdc++.h>
+using namespace std;
+void insert_heap(vector<int> &v, int &x)
+{
+    v.push_back(x);
+    int currentIndex = v.size() - 1;
+
+    while (currentIndex != 0)
+    {
+        int parentIndex = (currentIndex - 1) / 2;
+        if (v[parentIndex] < v[currentIndex])
+            swap(v[parentIndex], v[currentIndex]);
+        else
+            break;
+        currentIndex = parentIndex;
+    }
+}
+
+void delete_heap(vector<int> &v)
+{
+    v[0] = v[v.size() - 1];
+    v.pop_back();
+    int currentIndex = 0;
+    while (true)
+    {
+        int leftIndex = (2 * currentIndex) + 1;
+        int rightIndex = (2 * currentIndex) + 2;
+        int lastIndex = v.size() - 1;
+        if (leftIndex <= lastIndex && rightIndex <= lastIndex)
+        {
+            // duitai ase
+            if (v[leftIndex] >= v[rightIndex] && v[leftIndex] >= v[currentIndex])
+            {
+                swap(v[leftIndex], v[currentIndex]);
+                currentIndex = leftIndex;
+            }
+            else if (v[rightIndex] >= v[leftIndex] && v[rightIndex] >= v[currentIndex])
+            {
+                swap(v[rightIndex], v[currentIndex]);
+                currentIndex = rightIndex;
+            }
+            else
+                break;
+        }
+        else if (leftIndex <= lastIndex)
+        {
+            // left ase
+            if (v[leftIndex] > v[currentIndex])
+            {
+                swap(v[leftIndex], v[currentIndex]);
+                currentIndex = leftIndex;
+            }
+            else
+                break;
+        }
+        else if (rightIndex <= lastIndex)
+        {
+            // right ase
+            if (v[rightIndex] > v[currentIndex])
+            {
+                swap(v[rightIndex], v[currentIndex]);
+                currentIndex = rightIndex;
+            }
+            else
+                break;
+        }
+        else
+            break;
+    }
+}
+int main()
+{
+    int n;
+    cin >> n;
+    vector<int> v;
+    for (int i = 0; i < n; i++)
+    {
+        int x;
+        cin >> x;
+        insert_heap(v, x);
+    }
+    delete_heap(v);
+    for (int val : v)
+        cout << val << " ";
+
+    return 0;
+}
